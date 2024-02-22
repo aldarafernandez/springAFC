@@ -1,4 +1,4 @@
-INSERT INTO `products` VALUES 
+INSERT INTO `products` (id, price, description, image, name, category) VALUES 
 (3,59.99,'Zapatillas rojas marca Nike de tela.','https://res.cloudinary.com/dpwptrntt/image/upload/v1707048184/Products/mwmycyolqplhyo29joiy.jpg','Zapatillas rojas','ZAPATOS'),
 (4,19.99,'Zapatillas rojas y blancas bajas de tela.','https://res.cloudinary.com/dpwptrntt/image/upload/v1707048182/Products/katnjs9qrlhgqmyimzew.jpg','Zapatillas bajas','ZAPATOS'),
 (5,79.99,'Zapatillas blancas y marrones de cuero.','https://res.cloudinary.com/dpwptrntt/image/upload/v1707048182/Products/etxapl54mkatbiuhktx2.jpg','Zapatillas blancas bajas','ZAPATOS'),
