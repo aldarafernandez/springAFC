@@ -1,7 +1,11 @@
 package daw.entornoservidor.auth.filters;
 
+import static daw.entornoservidor.auth.TokenJwtConfig.SECRET_KEY;
+import static daw.entornoservidor.auth.TokenJwtConfig.PREFIX_TOKEN;
+import static daw.entornoservidor.auth.TokenJwtConfig.HEADER_AUTHORIZATION;
+
 import java.io.IOException;
-import java.util.Base64;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -16,6 +20,7 @@ import com.fasterxml.jackson.databind.DatabindException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import daw.entornoservidor.model.User;
+import io.jsonwebtoken.Jwts;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -65,10 +70,14 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 			throws IOException, ServletException{
 		
 		String username = ((org.springframework.security.core.userdetails.User) authResult.getPrincipal()).getUsername(); 
-		String originalInput = "PALABRA_SECRETA." + username;
-		String token = Base64.getEncoder().encodeToString(originalInput.getBytes());
+		String token = Jwts.builder()
+						.setSubject(username)
+						.signWith(SECRET_KEY)
+						.setIssuedAt(new Date())
+						.setExpiration(new Date(System.currentTimeMillis() + 3600000))
+						.compact();
 		
-		response.addHeader("Authorization", "Bearer " + token);
+		response.addHeader(HEADER_AUTHORIZATION, PREFIX_TOKEN + token);
 		
 		Map<String, Object> body = new HashMap<String, Object>();
 		body.put("token", token);
