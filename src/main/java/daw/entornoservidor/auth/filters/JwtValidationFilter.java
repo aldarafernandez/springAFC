@@ -6,6 +6,8 @@ import static daw.entornoservidor.auth.TokenJwtConfig.HEADER_AUTHORIZATION;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -19,6 +21,7 @@ import org.springframework.security.web.authentication.www.BasicAuthenticationFi
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import daw.entornoservidor.auth.SimpleGrantedAuthorityJsonCreator;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
@@ -58,8 +61,14 @@ public class JwtValidationFilter extends BasicAuthenticationFilter{
 			
 			String username = claims.getSubject();
 			
-			List<GrantedAuthority> authorities = new ArrayList<>();
-			authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
+			Object authoritiesClaims = claims.get("authorities");
+			
+			Collection<? extends GrantedAuthority> authorities = Arrays.asList(
+																			new ObjectMapper()
+																				.addMixIn(SimpleGrantedAuthority.class, SimpleGrantedAuthorityJsonCreator.class)
+																				.readValue(authoritiesClaims
+																					.toString()
+																					.getBytes(), SimpleGrantedAuthority.class));
 			
 			UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(username ,null , authorities);
 			
