@@ -57,6 +57,12 @@ INSERT INTO `products` (id, price, description, image, name, category) VALUES
 (58,85,'Reloj con correa de cuero y esfera negra.','https://res.cloudinary.com/dpwptrntt/image/upload/v1707048007/Products/bg1iax0gd0hp1awtcmll.jpg','Reloj cuero','RELOJES');
 
 
+INSERT INTO `roles` (`id`, `name`) VALUES (1, 'ROLE_ADMIN'), (2, 'ROLE_USER');
 
 
-INSERT INTO `tiendabd`.`users` (`email`, `name`, `password`, `surname`, `username`) VALUES ('admin@admin.com', 'admin', '$2a$10$DOMDxjYyfZ/e7RcBfUpzqeaCs8pLgcizuiQWXPkU35nOhZlFcE9MS', 'admin', 'admin');
+INSERT INTO `tiendabd`.`users` (`email`, `name`, `password`, `surname`, `username`) VALUES 
+('admin@admin.com', 'admin', '$2a$10$DOMDxjYyfZ/e7RcBfUpzqeaCs8pLgcizuiQWXPkU35nOhZlFcE9MS', 'admin', 'admin'),
+('user@user.com', 'user', '$2a$10$DOMDxjYyfZ/e7RcBfUpzqeaCs8pLgcizuiQWXPkU35nOhZlFcE9MS', 'user', 'user');
+
+
+INSERT INTO `users_roles` (`user_id`, `role_id`) VALUES ('1', '1'), ('1', '2'), ('2', '2');
