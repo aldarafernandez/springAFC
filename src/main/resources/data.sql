@@ -55,3 +55,8 @@ INSERT INTO `products` (id, price, description, image, name, category) VALUES
 (56,85,'Reloj negro con detalles dorados.','https://res.cloudinary.com/dpwptrntt/image/upload/v1707048010/Products/wyimjhsipuo2a8palay5.jpg','Reloj detalle dorado','RELOJES'),
 (57,145,'Reloj negro con esfera en oro.','https://res.cloudinary.com/dpwptrntt/image/upload/v1707048008/Products/saq71xldbzl46hw3cptl.jpg','Reloj con esfera oro','RELOJES'),
 (58,85,'Reloj con correa de cuero y esfera negra.','https://res.cloudinary.com/dpwptrntt/image/upload/v1707048007/Products/bg1iax0gd0hp1awtcmll.jpg','Reloj cuero','RELOJES');
+
+
+
+
+INSERT INTO `tiendabd`.`users` (`email`, `name`, `password`, `surname`, `username`) VALUES ('admin@admin.com', 'admin', '$2a$10$DOMDxjYyfZ/e7RcBfUpzqeaCs8pLgcizuiQWXPkU35nOhZlFcE9MS', 'admin', 'admin');
