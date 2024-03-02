@@ -1,12 +1,17 @@
 package daw.entornoservidor.model;
 
+import java.util.List;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+import jakarta.persistence.UniqueConstraint;
 
 @Entity
 @Table(name = "users")
@@ -27,6 +32,13 @@ public class User {
 	
 	private String password;
 	
+	@ManyToMany
+	@JoinTable(name = "users_roles",
+				joinColumns = @JoinColumn(name = "user_id"),
+				inverseJoinColumns = @JoinColumn(name = "role_id"),
+				uniqueConstraints = {@UniqueConstraint(columnNames = {"user_id", "role_id"})})
+	private List<Role> roles;
+	
 	@OneToOne
 	@JoinColumn(name = "cart_id", nullable = true)
 	private Cart cart;
@@ -38,17 +50,22 @@ public class User {
 
 
 
-	public User(Integer id, String username, String name, String surname, String email, String password, Cart cart) {
+	public User(Integer id, String username, String name, String surname, String email, String password,
+			List<Role> roles, Cart cart) {
 		this.id = id;
 		this.username = username;
 		this.name = name;
 		this.surname = surname;
 		this.email = email;
 		this.password = password;
+		this.roles = roles;
 		this.cart = cart;
 	}
 
 
+	
+	
+	
 
 	public Integer getId() {
 		return id;
@@ -122,6 +139,18 @@ public class User {
 
 
 
+	public List<Role> getRoles() {
+		return roles;
+	}
+
+
+
+	public void setRoles(List<Role> roles) {
+		this.roles = roles;
+	}
+
+
+
 	public Cart getCart() {
 		return cart;
 	}
@@ -133,13 +162,14 @@ public class User {
 	}
 
 
+	
+	
 
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", username=" + username + ", name=" + name + ", surname=" + surname + ", email="
-				+ email + ", password=" + password + ", cart=" + cart + "]";
+				+ email + ", password=" + password + ", roles=" + roles + ", cart=" + cart + "]";
 	}
-	
 	
 	
 }
