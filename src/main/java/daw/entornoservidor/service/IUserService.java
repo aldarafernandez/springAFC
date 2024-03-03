@@ -2,9 +2,10 @@ package daw.entornoservidor.service;
 
 
 import daw.entornoservidor.model.User;
+import daw.entornoservidor.model.DTO.UserDTO;
 
 public interface IUserService {
 
-	public User save(User user);
+	public UserDTO save(User user);
 	
 }

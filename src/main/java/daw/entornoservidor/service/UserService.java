@@ -11,6 +11,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import daw.entornoservidor.model.Role;
 import daw.entornoservidor.model.User;
+import daw.entornoservidor.model.DTO.UserDTO;
+import daw.entornoservidor.model.DTO.mapper.DTOMapperUser;
 import daw.entornoservidor.repository.RoleRepository;
 import daw.entornoservidor.repository.UserRepository;
 
@@ -28,7 +30,7 @@ public class UserService implements IUserService{
 
 	@Override
 	@Transactional
-	public User save(User user) {
+	public UserDTO save(User user) {
 		
 		user.setPassword(passwordEncoder.encode(user.getPassword()));
 		
@@ -43,6 +45,6 @@ public class UserService implements IUserService{
 			
 		user.setRoles(roles);
 		
-		return userRepository.save(user);
+		return DTOMapperUser.builder().setUser(userRepository.save(user)).build();
 	}
 }
