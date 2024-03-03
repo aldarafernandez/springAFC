@@ -19,13 +19,12 @@ public class ProductRestController {
 	@Autowired
 	IProductService productService;
 	
-	@CrossOrigin(origins = "http://localhost:5173")
 	@GetMapping("/all")
 	public List<Product> findAll(){
 		
 		return productService.findAll();
 	}
-	@CrossOrigin(origins = "http://localhost:5173")
+
 	@GetMapping("/{id}")
 	public Product findAll(@PathVariable ("id") Integer id){
 		
