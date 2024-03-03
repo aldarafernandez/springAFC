@@ -5,11 +5,9 @@ import static daw.entornoservidor.auth.TokenJwtConfig.PREFIX_TOKEN;
 import static daw.entornoservidor.auth.TokenJwtConfig.HEADER_AUTHORIZATION;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import org.springframework.security.authentication.AuthenticationManager;
