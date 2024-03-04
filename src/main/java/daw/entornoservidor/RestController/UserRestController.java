@@ -1,24 +1,45 @@
 package daw.entornoservidor.RestController;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import daw.entornoservidor.model.User;
-import daw.entornoservidor.repository.UserRepository;
+import daw.entornoservidor.model.DTO.UserCartDTO;
+import daw.entornoservidor.model.DTO.UserDTO;
+import daw.entornoservidor.service.IUserService;
+
 
 @RestController
 @RequestMapping("/api/user")
 public class UserRestController {
 	
 	@Autowired
-	private UserRepository userRepository;
+	private IUserService userService;
 
 	@PostMapping("/new")
-	public User newUser(@RequestBody User user) {
+	public UserDTO newUser(@RequestBody User user) {
 		
-		return userRepository.save(user);
+		return userService.save(user);
+	}
+	
+	@GetMapping("/${username}/cart")
+	public UserCartDTO cart(@PathVariable String username) {
+		
+		UserCartDTO userCartDTO = userService.cart(username);
+		
+		return userCartDTO;
+	}
+	
+	@GetMapping("/{username}/add/{id}")
+	public UserCartDTO add(@PathVariable("username") String username, @PathVariable("id") Integer id) {
+		
+		UserCartDTO userCartDTO = userService.addToCart(username, id);
+		
+		return userCartDTO;
 	}
 }

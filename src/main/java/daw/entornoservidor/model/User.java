@@ -2,6 +2,7 @@ package daw.entornoservidor.model;
 
 import java.util.List;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -21,7 +22,7 @@ public class User {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
-	
+	@Column(unique = true)
 	private String username;
 	
 	private String name;
@@ -41,7 +42,7 @@ public class User {
 	
 	@OneToOne
 	@JoinColumn(name = "cart_id", nullable = true)
-	private Cart cart;
+	private Cart cart = new Cart();
 
 	
 	

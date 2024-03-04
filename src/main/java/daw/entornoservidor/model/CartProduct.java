@@ -20,16 +20,21 @@ public class CartProduct {
 	@JoinColumn(name = "productId")
 	private Product product;
 	
-	private int quantity;
+	private Integer quantity;
 
 	
 	
 	public CartProduct() {
 	}
+	
+
+	public CartProduct(Product product, Integer quantity) {
+		this.product = product;
+		this.quantity = quantity;
+	}
 
 
-
-	public CartProduct(Integer id, Product product, int quantity) {
+	public CartProduct(Integer id, Product product, Integer quantity) {
 		this.id = id;
 		this.product = product;
 		this.quantity = quantity;
@@ -61,13 +66,13 @@ public class CartProduct {
 
 
 
-	public int getQuantity() {
+	public Integer getQuantity() {
 		return quantity;
 	}
 
 
 
-	public void setQuantity(int quantity) {
+	public void setQuantity(Integer quantity) {
 		this.quantity = quantity;
 	}
 
