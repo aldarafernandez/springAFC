@@ -1,5 +1,7 @@
 package daw.entornoservidor.RestController;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -41,5 +43,11 @@ public class UserRestController {
 		UserCartDTO userCartDTO = userService.addToCart(username, id);
 		
 		return userCartDTO;
+	}
+	
+	@GetMapping("/users")
+	public List<User> all(){
+		
+		return userService.findAll();
 	}
 }
