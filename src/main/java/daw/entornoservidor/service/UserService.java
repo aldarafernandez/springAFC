@@ -9,6 +9,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import daw.entornoservidor.model.Cart;
 import daw.entornoservidor.model.CartProduct;
 import daw.entornoservidor.model.Role;
 import daw.entornoservidor.model.User;
@@ -52,6 +53,8 @@ public class UserService implements IUserService{
 			
 		user.setRoles(roles);
 		
+		user.setCart(new Cart());
+		
 		return DTOMapperUser.builder().setUser(userRepository.save(user)).build();
 	}
 
@@ -71,16 +74,24 @@ public class UserService implements IUserService{
 	@Override
 	public UserCartDTO addToCart(String username, Integer id) {
 		
-		Optional<User> user = userRepository.findByUsername(username);
+		Optional<User> optional = userRepository.findByUsername(username);
 		
-		if (user.isPresent()) {
+		if (optional.isPresent()) {
 			
-			user.orElseThrow().getCart().getCartProducts().add(new CartProduct(productRepository.findById(id).orElseThrow(), 1));
+			User user = optional.get();
+			
+			user.getCart().getCartProducts().add(new CartProduct(productRepository.findById(id).orElseThrow(), 1));
 			
 			
-			return DTOMapperCart.builder().setUser(user.orElseThrow()).build();
+			return DTOMapperCart.builder().setUser(user).build();
 		}
 		
 		return null;
+	}
+
+	@Override
+	public List<User> findAll() {
+		
+		return userRepository.findAll();
 	}
 }

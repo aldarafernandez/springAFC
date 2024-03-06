@@ -41,7 +41,7 @@ public class User {
 	private List<Role> roles;
 	
 	@OneToOne
-	@JoinColumn(name = "cart_id", nullable = true)
+	@JoinColumn(name = "cart", nullable = true)
 	private Cart cart = new Cart();
 
 	
