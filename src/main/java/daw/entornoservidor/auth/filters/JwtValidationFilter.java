@@ -66,7 +66,7 @@ public class JwtValidationFilter extends BasicAuthenticationFilter{
 																				.addMixIn(SimpleGrantedAuthority.class, SimpleGrantedAuthorityJsonCreator.class)
 																				.readValue(authoritiesClaims
 																					.toString()
-																					.getBytes(), SimpleGrantedAuthority.class));
+																					.getBytes(), SimpleGrantedAuthority[].class));
 			
 			UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(username ,null , authorities);
 			
