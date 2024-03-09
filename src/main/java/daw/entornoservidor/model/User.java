@@ -40,10 +40,7 @@ public class User {
 				uniqueConstraints = {@UniqueConstraint(columnNames = {"user_id", "role_id"})})
 	private List<Role> roles;
 	
-	@OneToOne
-	@JoinColumn(name = "cart", nullable = true)
-	private Cart cart = new Cart();
-
+	
 	
 	
 	public User() {
@@ -52,7 +49,7 @@ public class User {
 
 
 	public User(Integer id, String username, String name, String surname, String email, String password,
-			List<Role> roles, Cart cart) {
+			List<Role> roles) {
 		this.id = id;
 		this.username = username;
 		this.name = name;
@@ -60,7 +57,6 @@ public class User {
 		this.email = email;
 		this.password = password;
 		this.roles = roles;
-		this.cart = cart;
 	}
 
 
@@ -151,25 +147,13 @@ public class User {
 	}
 
 
-
-	public Cart getCart() {
-		return cart;
-	}
-
-
-
-	public void setCart(Cart cart) {
-		this.cart = cart;
-	}
-
-
 	
 	
 
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", username=" + username + ", name=" + name + ", surname=" + surname + ", email="
-				+ email + ", password=" + password + ", roles=" + roles + ", cart=" + cart + "]";
+				+ email + ", password=" + password + ", roles=" + roles + "]";
 	}
 	
 	

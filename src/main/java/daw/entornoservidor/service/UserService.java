@@ -9,15 +9,13 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import daw.entornoservidor.model.Cart;
-import daw.entornoservidor.model.CartProduct;
 import daw.entornoservidor.model.Role;
 import daw.entornoservidor.model.User;
-import daw.entornoservidor.model.DTO.UserCartDTO;
+
 import daw.entornoservidor.model.DTO.UserDTO;
-import daw.entornoservidor.model.DTO.mapper.DTOMapperCart;
+
 import daw.entornoservidor.model.DTO.mapper.DTOMapperUser;
-import daw.entornoservidor.repository.ProductRepository;
+
 import daw.entornoservidor.repository.RoleRepository;
 import daw.entornoservidor.repository.UserRepository;
 
@@ -26,9 +24,7 @@ public class UserService implements IUserService{
 
 	@Autowired
 	private UserRepository userRepository;
-	
-	@Autowired
-	private ProductRepository productRepository;
+
 	
 	@Autowired
 	private RoleRepository roleRepository;
@@ -53,40 +49,8 @@ public class UserService implements IUserService{
 			
 		user.setRoles(roles);
 		
-		user.setCart(new Cart());
 		
 		return DTOMapperUser.builder().setUser(userRepository.save(user)).build();
-	}
-
-	@Override
-	public UserCartDTO cart(String username) {
-		
-		Optional<User> user = userRepository.findByUsername(username);
-		
-		if (user.isPresent()) {
-			
-			return DTOMapperCart.builder().setUser(user.orElseThrow()).build();
-		}
-		
-		return null;
-	}
-
-	@Override
-	public UserCartDTO addToCart(String username, Integer id) {
-		
-		Optional<User> optional = userRepository.findByUsername(username);
-		
-		if (optional.isPresent()) {
-			
-			User user = optional.get();
-			
-			user.getCart().getCartProducts().add(new CartProduct(productRepository.findById(id).orElseThrow(), 1));
-			
-			
-			return DTOMapperCart.builder().setUser(user).build();
-		}
-		
-		return null;
 	}
 
 	@Override
